@@ -1,0 +1,2 @@
+-edit the menu from pc mode to have same links like mobile mode
+-make good toast system 
