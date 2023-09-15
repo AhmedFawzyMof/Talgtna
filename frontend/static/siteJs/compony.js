@@ -3,6 +3,7 @@ function addItemToCart(productId) {
   var id = Product.querySelector("#productId").value;
   var name = Product.querySelector("#productName").value;
   var price = Product.querySelector("#productPrice").value;
+  var inStock = Product.querySelector("#productInStock").value;
   var image = Product.querySelector("#productImage").value;
   var quantity = 1;
   var product = {
@@ -10,6 +11,7 @@ function addItemToCart(productId) {
     name: name,
     price: parseInt(price),
     image: image,
+    inStock: parseInt(inStock),
     quantity: quantity,
   };
   if (!Cart.length > 0) {
@@ -88,15 +90,12 @@ function incQuantity(productId) {
     return item.id == productId;
   });
   if (res !== undefined) {
-    if (res.quantity <= 19) {
+    if (res.quantity <= res.inStock - 1) {
       res.quantity += 1;
     } else {
-      res.quantity = 20;
+      res.quantity = res.inStock;
     }
   }
-
-  Cart.splice(res.index, 1);
-  Cart.push(res);
 
   localStorage.setItem("cart", JSON.stringify(Cart));
   const products = [];
@@ -121,9 +120,6 @@ function decQuantity(productId) {
       res.quantity = 1;
     }
   }
-
-  Cart.splice(res.index, 1);
-  Cart.push(res);
 
   localStorage.setItem("cart", JSON.stringify(Cart));
   const products = [];

@@ -18,7 +18,7 @@ export default class extends AbstractViews {
       .map((product, index) => {
         function isAvailable() {
           let ava = "product";
-          if (product.available !== 1) {
+          if (product.available !== 1 && product.inStock == 0) {
             ava += " notavailable";
           } else {
             ava;
@@ -47,15 +47,14 @@ export default class extends AbstractViews {
         <input type="hidden" value="${product.name}" id="productName" />
         <input type="hidden" value="${product.image}" id="productImage" />
         <input type="hidden" value="${product.price}" id="productPrice" />
+        <input type="hidden" value="${product.inStock}" id="productInStock" />
         <input type="hidden" value="1" id="productQuantity" />
         <button id='addtocart' onclick="addItemToCart(${
           product.id
         })"><img src="/static/img/addtocart.png" /></button>
         <button id='addtofav'><i class="bx bxs-heart"></i></button>
-        <a href='/product/${product.id}'>
-          <div class='image'>
-            <img src='/static/${product.image}' />
-          </div>
+        <a href='/product/${product.id}' data-link>
+            <img class='image' src='/static/${product.image}' />
           <div class='body'>
             <p>${product.name}</p>
           </div>
@@ -65,7 +64,7 @@ export default class extends AbstractViews {
       `;
       })
       .join("");
-    fetch("http://localhost:3000/static/siteJs/compony.js")
+    fetch("/static/siteJs/compony.js")
       .then(function (response) {
         if (!response.ok) {
           return false;

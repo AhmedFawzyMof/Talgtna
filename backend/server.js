@@ -14,8 +14,10 @@ app.use(express.urlencoded({ extended: true, limit: "50mb" }));
 
 const IndexRoute = require("./router/index.router");
 const ComponyRoute = require("./router/compony.router");
+const ProductRoute = require("./router/product.router");
 
 app.use("/", IndexRoute);
 app.use("/compony", ComponyRoute);
+app.use("/product", ProductRoute);
 
 app.listen(5500);

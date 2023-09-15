@@ -5,6 +5,7 @@ import Coupons from "./views/Coupons.mjs";
 import Cashback from "./views/Cashback.mjs";
 import Product from "./views/Product.mjs";
 import Compony from "./views/Compony.mjs";
+import Cart from "./views/Cart.mjs";
 
 const pathToRegex = (path) =>
   new RegExp("^" + path.replace(/\//g, "\\/").replace(/:\w+/g, "(.+)") + "$");
@@ -30,6 +31,7 @@ const navigateTo = (url) => {
 const router = async () => {
   const routes = [
     { path: "/", view: Home },
+    { path: "/cart", view: Cart },
     { path: "/profile", view: Profile },
     { path: "/product/:id", view: Product },
     { path: "/compony/:name", view: Compony },

@@ -68,7 +68,7 @@ export default class extends AbstractViews {
     if (!localStorage.getItem("cart")) {
       localStorage.setItem("cart", "[]");
     }
-    fetch("http://localhost:3000/static/siteJs/index.js")
+    fetch("/static/siteJs/index.js")
       .then(function (response) {
         if (!response.ok) {
           return false;

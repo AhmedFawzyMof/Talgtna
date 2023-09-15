@@ -47,4 +47,7 @@ function cartLength() {
     quantityInCart.innerHTML = length;
     cartA.appendChild(quantityInCart);
   }
+  return length;
 }
+
+cartLength();
