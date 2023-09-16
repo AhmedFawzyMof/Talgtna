@@ -6,6 +6,8 @@ import Cashback from "./views/Cashback.mjs";
 import Product from "./views/Product.mjs";
 import Compony from "./views/Compony.mjs";
 import Cart from "./views/Cart.mjs";
+import Login from "./views/Login.mjs";
+import Register from "./views/Register.mjs";
 
 const pathToRegex = (path) =>
   new RegExp("^" + path.replace(/\//g, "\\/").replace(/:\w+/g, "(.+)") + "$");
@@ -61,7 +63,7 @@ const router = async () => {
     };
   }
 
-  const view = new match.route.view(getParams(match));
+  const view = new match.route.view(getParams(match), match.route.auth);
 
   if (match.route.auth) {
     if (localStorage.getItem("AuthToken")) {

@@ -49,7 +49,9 @@ export default class extends AbstractViews {
                 </div>
                 <div id="productTotal">
                     <p id='PT'>${product.price * product.quantity} ج<p>
-                    <button><i class='bx bxs-trash'></i></button>
+                    <button onclick="removeProduct(${
+                      product.id
+                    })"><i class='bx bxs-trash'></i></button>
                 </div>
             </div>
         </div>

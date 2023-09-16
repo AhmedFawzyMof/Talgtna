@@ -62,3 +62,15 @@ function removeAll() {
   cartLength();
   location.reload();
 }
+
+function removeProduct(Product) {
+  const TheProduct = Cart.find((product, index) => {
+    Object.assign(product, { index: index });
+    return product.id === Product;
+  });
+
+  Cart.splice(TheProduct.index, 1);
+  console.log(Cart);
+  localStorage.setItem("cart", JSON.stringify(Cart));
+  location.reload();
+}
