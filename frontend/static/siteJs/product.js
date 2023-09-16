@@ -1,5 +1,3 @@
-const addbutton = document.getElementById("addTo");
-
 function addTo() {
   const product = JSON.parse(document.getElementById("productId").value);
   const quantity = JSON.parse(document.getElementById("quantity").value);
@@ -28,5 +26,3 @@ function addTo() {
   localStorage.setItem("cart", JSON.stringify(Cart));
   cartLength();
 }
-
-addbutton.addEventListener("click", addTo);

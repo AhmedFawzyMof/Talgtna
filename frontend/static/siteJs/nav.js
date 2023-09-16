@@ -39,14 +39,18 @@ const quantityInCart = document.createElement("span");
 quantityInCart.setAttribute("id", "count");
 
 function cartLength() {
-  const length = Cart.reduce((acc, curr) => {
+  const Thecart = JSON.parse(localStorage.getItem("cart"));
+  let length = Thecart.reduce((acc, curr) => {
     return acc + curr.quantity;
   }, 0);
 
   if (length !== 0) {
     quantityInCart.innerHTML = length;
     cartA.appendChild(quantityInCart);
+  } else {
+    cartA.innerHTML = '<i class="bx bx-cart-alt"></i>';
   }
+
   return length;
 }
 

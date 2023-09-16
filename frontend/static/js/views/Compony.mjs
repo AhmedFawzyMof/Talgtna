@@ -1,8 +1,8 @@
 import AbstractViews from "./AbstractViews.mjs";
 
 export default class extends AbstractViews {
-  constructor(params) {
-    super(params);
+  constructor(params, auth) {
+    super(params, auth);
     const compony = decodeURI(params.name);
     this.company = compony;
     this.setTitle(compony);

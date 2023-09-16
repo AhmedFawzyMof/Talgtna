@@ -30,14 +30,16 @@ const navigateTo = (url) => {
 
 const router = async () => {
   const routes = [
-    { path: "/", view: Home },
-    { path: "/cart", view: Cart },
-    { path: "/profile", view: Profile },
-    { path: "/product/:id", view: Product },
-    { path: "/compony/:name", view: Compony },
-    { path: "/cashback", view: Cashback },
-    { path: "/coupons", view: Coupons },
-    { path: "/orderHistory", view: OrderHistory },
+    { path: "/", view: Home, auth: false },
+    { path: "/cart", view: Cart, auth: false },
+    { path: "/login", view: Login, auth: false },
+    { path: "/register", view: Register, auth: false },
+    { path: "/profile", view: Profile, auth: true },
+    { path: "/product/:id", view: Product, auth: false },
+    { path: "/compony/:name", view: Compony, auth: false },
+    { path: "/cashback", view: Cashback, auth: true },
+    { path: "/coupons", view: Coupons, auth: true },
+    { path: "/orderHistory", view: OrderHistory, auth: true },
   ];
 
   // Test each route for potential match
@@ -61,7 +63,15 @@ const router = async () => {
 
   const view = new match.route.view(getParams(match));
 
-  document.querySelector("#app").innerHTML = await view.getHtml();
+  if (match.route.auth) {
+    if (localStorage.getItem("AuthToken")) {
+      document.querySelector("#app").innerHTML = await view.getHtml();
+    } else {
+      document.querySelector("#app").innerHTML = await view.getHtml();
+    }
+  } else {
+    document.querySelector("#app").innerHTML = await view.getHtml();
+  }
 };
 
 window.addEventListener("popstate", router);

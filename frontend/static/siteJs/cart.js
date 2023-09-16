@@ -3,7 +3,6 @@ function inc(productId) {
     Object.assign(product, { index: index });
     return product.id === productId;
   });
-  console.log(inCart);
   if (inCart !== undefined) {
     const productDiv = document.getElementById(productId.toString());
     const PT = productDiv.querySelector("#PT");
@@ -25,7 +24,6 @@ function dec(productId) {
   const inCart = Cart.find((product) => {
     return product.id === productId;
   });
-
   if (inCart !== undefined) {
     const productDiv = document.getElementById(productId.toString());
     const PT = productDiv.querySelector("#PT");
@@ -57,4 +55,10 @@ function TotalT() {
   const TotalPro = document.getElementById("TotalPro");
   TP.innerHTML = productTotal + " ج";
   TotalPro.innerHTML = "منتجات " + cartLength();
+}
+
+function removeAll() {
+  localStorage.setItem("cart", "[]");
+  cartLength();
+  location.reload();
 }

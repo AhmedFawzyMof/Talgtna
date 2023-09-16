@@ -1,8 +1,8 @@
 import AbstractViews from "./AbstractViews.mjs";
 
 export default class extends AbstractViews {
-  constructor(params) {
-    super(params);
+  constructor(params, auth) {
+    super(params, auth);
     this.setTitle("Talgtna");
     this.setStyle("/static/css/index.css");
   }

@@ -1,8 +1,8 @@
 import AbstractViews from "./AbstractViews.mjs";
 
 export default class extends AbstractViews {
-  constructor(params) {
-    super(params);
+  constructor(params, auth) {
+    super(params, auth);
     const productId = decodeURI(params.id);
     this.productId = productId;
     this.setTitle("Product: " + this.productId);
@@ -29,7 +29,7 @@ export default class extends AbstractViews {
             <select id='quantity'>
               ${opts}
             </select>
-            <button id='addTo'>أضف إلى السلة</button>
+            <button onclick="addTo()">أضف إلى السلة</button>
         </div>
         `;
       } else {
@@ -40,8 +40,10 @@ export default class extends AbstractViews {
       }
     }
     function IsOffer(product) {
-      let percent =
-        product.price - product.price + (product.offer / product.price) * 100;
+      let withOf = product.price + product.offer;
+      let st = Math.abs(withOf - product.price) / withOf;
+      let percent = st * 100;
+
       if (product.offer > 0) {
         return `
         <h2 class='price'>${product.price} ج</h2>

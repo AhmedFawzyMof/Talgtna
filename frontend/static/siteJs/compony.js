@@ -14,7 +14,7 @@ function addItemToCart(productId) {
     inStock: parseInt(inStock),
     quantity: quantity,
   };
-  if (!Cart.length > 0) {
+  if (Cart.length == 0) {
     Cart.push(product);
   } else {
     var CartItem = Cart.find(function (element) {
@@ -45,8 +45,6 @@ function getProductsInCart() {
   });
   replaceBtns(ProductsInCart);
 }
-
-getProductsInCart();
 
 function replaceBtns(products) {
   products.forEach((product) => {
@@ -130,4 +128,7 @@ function decQuantity(productId) {
     });
   });
   replaceBtns(products);
+}
+if (cartLength() > 0) {
+  getProductsInCart();
 }

@@ -3,4 +3,3 @@
 -add animation for change a page
 -loading bar global
 -authentication system
--make products in cart have link to the product page
