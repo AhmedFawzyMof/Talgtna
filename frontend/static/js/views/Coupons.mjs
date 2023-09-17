@@ -5,11 +5,42 @@ export default class extends AbstractViews {
     super(params, auth);
     this.auth = auth;
     this.setTitle("my Coupons");
-    this.setStyle("");
+    this.setStyle("/static/css/coupon.css");
   }
   async getHtml() {
     if (this.auth) {
       if (localStorage.getItem("AuthToken")) {
+        const headers = new Headers();
+        headers.append("AuthToken", localStorage.getItem("AuthToken"));
+        const response = await fetch("http://localhost:5500/user/coupon", {
+          method: "get",
+          headers: headers,
+        });
+
+        const data = await response.json();
+
+        const coupons = data.coupons;
+
+        const mappedCoupons = coupons
+          .map((coupon, index) => {
+            return `
+        <div class='coupon' key="${index}">
+          <h1 class='code'>
+          ${coupon.code}
+          </h1>
+          <div class='value'>
+            <h2>
+              ${coupon.code}
+            </h2>
+           <h1>${coupon.value} ج</h1>
+          </div>
+          <button class='useIt' onclick='useCoupon(${JSON.stringify(
+            coupon
+          )})'>استخدامه</button>
+        </div>`;
+          })
+          .join("");
+
         fetch("/static/siteJs/coupons.js")
           .then(function (response) {
             if (!response.ok) {
@@ -32,7 +63,7 @@ export default class extends AbstractViews {
             sc.setAttribute("type", "text/javascript");
             document.head.appendChild(sc);
           });
-        return "";
+        return `<div class='cotainer'>${mappedCoupons}</div>`;
       } else {
         return `
         <div class='notLoginPop'>

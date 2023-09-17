@@ -1,0 +1,76 @@
+#app {
+  gap: 20px;
+}
+div.coupon {
+  width: 95%;
+  background: var(--sub-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  height: 150px;
+  position: relative;
+  -webkit-box-shadow: 0px 4px 10px #33333370;
+}
+.code {
+  width: 60%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.value {
+  background: var(--main-color);
+  height: 100%;
+  width: 40%;
+  color: var(--sub-color);
+  border-radius: 10px 0 0 10px;
+  display: flex;
+  align-items: center;
+}
+
+.value h1 {
+  rotate: 90deg;
+}
+
+h2 {
+  rotate: 90deg;
+  width: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.value h1 {
+  rotate: 90deg;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cotainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+  flex-direction: column;
+  width: 550px;
+}
+
+@media (max-width: 550px) {
+  .cotainer {
+    width: 100%;
+  }
+}
+
+button.useIt {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  border-radius: 5px;
+  padding: 2.5px 5px;
+  background: var(--main-color);
+  color: var(--sub-color);
+  border: none;
+  -webkit-box-shadow: 0px 4px 10px #33333370;
+}
