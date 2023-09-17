@@ -4,12 +4,34 @@ export default class extends AbstractViews {
   constructor(params, auth) {
     super(params, auth);
     this.auth = auth;
-    this.setTitle("my Profile");
+    this.setTitle("my Coupons");
     this.setStyle("");
   }
   async getHtml() {
     if (this.auth) {
       if (localStorage.getItem("AuthToken")) {
+        fetch("/static/siteJs/coupons.js")
+          .then(function (response) {
+            if (!response.ok) {
+              return false;
+            }
+            return response.blob();
+          })
+          .then(function (myBlob) {
+            var objectURL = URL.createObjectURL(myBlob);
+            const oldScripts = document.querySelectorAll("[data-script]");
+            oldScripts.forEach((script) => {
+              if (script.src !== objectURL) {
+                document.head.removeChild(script);
+              }
+            });
+            var sc = document.createElement("script");
+            sc.setAttribute("src", objectURL);
+            sc.setAttribute("defer", "");
+            sc.setAttribute("data-script", "");
+            sc.setAttribute("type", "text/javascript");
+            document.head.appendChild(sc);
+          });
         return "";
       } else {
         return `

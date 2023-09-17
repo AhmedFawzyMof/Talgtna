@@ -8,11 +8,11 @@
       href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
       rel="stylesheet"
     />
-    <link rel="stylesheet" data-style>
+    <link rel="stylesheet" data-style />
     <link rel="stylesheet" href="/static/css/nav.css" />
     <script type="module" src="/static/js/index.mjs"></script>
     <script defer src="/static/siteJs/nav.js"></script>
-    </head>
+  </head>
   <body>
     <nav id="PC">
       <h3>Talgtna</h3>
@@ -21,7 +21,9 @@
         <button type="submit"><i class="bx bx-search-alt-2"></i></button>
       </form>
       <a id="linkItem" data-link href="/fav"><i class="bx bxs-heart"></i></a>
-      <a id="linkItem" class="cart" data-link href="/cart"><i class="bx bx-cart-alt"></i></a>
+      <a id="linkItem" class="cart" data-link href="/cart"
+        ><i class="bx bx-cart-alt"></i
+      ></a>
       <button id="menuBtn">
         <i class="bx bx-dots-horizontal-rounded"></i>
       </button>
@@ -35,7 +37,9 @@
     <div id="MO">
       <nav class="top">
         <a id="linkItem" data-link href="/fav"><i class="bx bxs-heart"></i></a>
-        <a id="linkItem" class="cart" data-link href="/cart"><i class="bx bx-cart-alt"></i></a>
+        <a id="linkItem" class="cart" data-link href="/cart">
+          <i class="bx bx-cart-alt"></i>
+        </a>
         <form id="search">
           <input
             type="search"
@@ -44,14 +48,29 @@
           />
           <button type="submit"><i class="bx bx-search-alt-2"></i></button>
         </form>
-        <a id="linkItem" href="/user"><img src="/static/img/cs.png"></i></a>
+        <a id="linkItem" href="/user"><img src="/static/img/cs.png" /></a>
       </nav>
       <nav class="bottom">
-        <a href="/" data-link><i class='bx bx-home'></i><p>الرئيسية</p></a>
-        <a href="/cashback" data-link><i class='bx bx-wallet'></i><p>كاش باك</p></a>
-        <a href="/coupons" data-link><i class='bx bxs-discount'></i><p>القسائم</p></a>
-        <a href="/orderhistory" data-link><i class='bx bxs-package' ></i><p>طلباتك</p></a>
-        <a href="/profile" data-link><i class='bx bxs-user-circle'></i><p>حسابك</p></a>
+        <a href="/" data-link>
+          <i class="bx bx-home"></i>
+          <p>الرئيسية</p>
+        </a>
+        <a href="/cashback" data-link>
+          <i class="bx bx-wallet"></i>
+          <p>كاش باك</p>
+        </a>
+        <a href="/coupons" data-link>
+          <i class="bx bxs-discount"></i>
+          <p>القسائم</p>
+        </a>
+        <a href="/orderHistory" data-link>
+          <i class="bx bxs-package"></i>
+          <p>طلباتك</p>
+        </a>
+        <a href="/profile" data-link>
+          <i class="bx bxs-user-circle"></i>
+          <p>حسابك</p>
+        </a>
       </nav>
     </div>
     <div id="app"></div>

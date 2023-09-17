@@ -11,6 +11,28 @@ export default class extends AbstractViews {
     if (localStorage.getItem("AuthToken")) {
       location.replace("/");
     } else {
+      fetch("/static/siteJs/login.js")
+        .then(function (response) {
+          if (!response.ok) {
+            return false;
+          }
+          return response.blob();
+        })
+        .then(function (myBlob) {
+          var objectURL = URL.createObjectURL(myBlob);
+          const oldScripts = document.querySelectorAll("[data-script]");
+          oldScripts.forEach((script) => {
+            if (script.src !== objectURL) {
+              document.head.removeChild(script);
+            }
+          });
+          var sc = document.createElement("script");
+          sc.setAttribute("src", objectURL);
+          sc.setAttribute("defer", "");
+          sc.setAttribute("data-script", "");
+          sc.setAttribute("type", "text/javascript");
+          document.head.appendChild(sc);
+        });
       return `
       <div class='logIn'>
         <div class="logo">
