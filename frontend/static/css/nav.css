@@ -269,3 +269,62 @@ nav #Lang {
     height: 300px;
   }
 }
+
+#toastBox {
+  position: fixed;
+  bottom: 30px;
+  right: 5px;
+  display: flex;
+  align-items: flex-end;
+  flex-direction: column;
+  overflow: hidden;
+  padding: 20px 10px;
+  transition: 0.3s;
+}
+
+.toast {
+  width: 300px;
+  height: 50px;
+  background: var(--sub-color);
+  font-weight: 500;
+  margin: 15px 0;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  padding: 0 5px;
+  border-radius: 10px;
+  position: relative;
+  transition: 0.3s;
+}
+
+.toast.invalid {
+  background: #d7d712;
+  color: var(--sub-color);
+}
+
+.toast.success {
+  background: #87df00;
+  color: var(--sub-color);
+}
+
+.toast.error {
+  background: #f92a2a;
+  color: var(--sub-color);
+}
+
+.toastafter {
+  border-radius: 0 0 10px 10px;
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0.5px;
+  width: 100%;
+  height: 8px;
+  background: var(--main-color);
+}
+
+@keyframes anim {
+  100% {
+    width: 0;
+  }
+}

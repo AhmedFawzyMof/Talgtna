@@ -1,5 +1,4 @@
 -edit the menu from pc mode to have same links like mobile mode
--make good toast system 
 -add animation for change a page
 -loading bar global
--authentication system
+-authentication system %50

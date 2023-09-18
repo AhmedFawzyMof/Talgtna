@@ -5,11 +5,20 @@ export default class extends AbstractViews {
     super(params, auth);
     this.auth = auth;
     this.setTitle("my CashBack balance");
-    this.setStyle("");
+    this.setStyle("/static/css/cashback.css");
   }
   async getHtml() {
     if (this.auth) {
       if (localStorage.getItem("AuthToken")) {
+        const headers = new Headers();
+        headers.append("AuthToken", localStorage.getItem("AuthToken"));
+        const response = await fetch("http://localhost:5500/user/cashback", {
+          method: "get",
+          headers: headers,
+        });
+
+        const data = await response.json();
+
         fetch("/static/siteJs/cashBack.js")
           .then(function (response) {
             if (!response.ok) {
@@ -32,7 +41,16 @@ export default class extends AbstractViews {
             sc.setAttribute("type", "text/javascript");
             document.head.appendChild(sc);
           });
-        return "";
+        return `
+        <div class="Cashback">
+          <p>رصيد كاش باك</p>
+          <p>${data.cashback} ج</p>
+        </div>
+        <div class="Orders">
+          <p>عدد الطلبات</p>
+          <p>${data.orders}</p>
+        </div>
+        `;
       } else {
         return `
         <div class='notLoginPop'>

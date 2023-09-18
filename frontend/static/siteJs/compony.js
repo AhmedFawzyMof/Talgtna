@@ -16,12 +16,22 @@ function addItemToCart(productId) {
   };
   if (Cart.length == 0) {
     Cart.push(product);
+    CreateToast({
+      type: "success",
+      message: "تمت إضافة المنتج إلى سلة التسوق",
+      time: 5000,
+    });
   } else {
     var CartItem = Cart.find(function (element) {
       return element.id == product.id;
     });
     if (CartItem === undefined) {
       Cart.push(product);
+      CreateToast({
+        type: "success",
+        message: "تمت إضافة المنتج إلى سلة التسوق",
+        time: 5000,
+      });
     }
   }
 

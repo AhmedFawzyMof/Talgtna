@@ -14,6 +14,20 @@ LoginForm.addEventListener("submit", async function (e) {
     body: urlencoded,
   });
   const data = await response.json();
-  localStorage.setItem("AuthToken", data.userInfo);
-  location.replace("/");
+  if (data.err) {
+    CreateToast({
+      type: "error",
+      message: "لا يمكن تسجيل الدخول ببيانات المقدمة",
+      time: 7000,
+    });
+  } else {
+    localStorage.setItem("AuthToken", data.userInfo);
+    CreateToast({
+      type: "success",
+      message: "تم تسجيل الدخول بنجاح",
+      time: 7000,
+    });
+    const Home = document.getElementById("HomePage");
+    Home.click();
+  }
 });

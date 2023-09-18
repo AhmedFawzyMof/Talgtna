@@ -55,3 +55,31 @@ function cartLength() {
 }
 
 cartLength();
+let toastBox = document.getElementById("toastBox");
+
+function CreateToast(options) {
+  let toast = document.createElement("div");
+  let toastaf = document.createElement("div");
+  toast.classList.add("toast");
+  toastaf.classList.add("toastafter");
+  if (options.type == "success") {
+    toast.classList.add("success");
+    toast.innerHTML = options.message;
+    toastBox.appendChild(toast);
+  } else if (options.type == "invalid") {
+    toast.classList.add("invalid");
+    toast.innerHTML = options.message;
+    toastBox.appendChild(toast);
+  } else {
+    toast.classList.add("error");
+    toast.innerHTML = options.message;
+    toastBox.appendChild(toast);
+  }
+  toast.appendChild(toastaf);
+
+  const sec = options.time / 1000;
+  toastaf.style.animation = "anim " + sec + "s linear forwards";
+  setTimeout(() => {
+    toast.remove();
+  }, options.time);
+}

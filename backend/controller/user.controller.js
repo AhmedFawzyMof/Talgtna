@@ -11,24 +11,30 @@ const controller = {
       "SELECT id,email,Admin,Stuff FROM `Users` WHERE (email,password)=(?,?)",
       [user.email, password]
     );
-    let TheUser = User[0];
-    console.log(TheUser);
-    if (TheUser.Admin == 1) {
-      Object.assign(TheUser, { Admin: true });
-    } else {
-      Object.assign(TheUser, { Admin: false });
-    }
-    if (TheUser.Stuff == 1) {
-      Object.assign(TheUser, { Stuff: true });
-    } else {
-      Object.assign(TheUser, { Stuff: false });
-    }
+    if (User.length > 0) {
+      let TheUser = User[0];
+      if (TheUser.Admin == 1) {
+        Object.assign(TheUser, { Admin: true });
+      } else {
+        Object.assign(TheUser, { Admin: false });
+      }
+      if (TheUser.Stuff == 1) {
+        Object.assign(TheUser, { Stuff: true });
+      } else {
+        Object.assign(TheUser, { Stuff: false });
+      }
 
-    const token = jwt.sign({ user: TheUser }, process.env.SECRET_KEY);
+      const token = jwt.sign({ user: TheUser }, process.env.SECRET_KEY);
 
-    res.json({
-      userInfo: token,
-    });
+      res.json({
+        userInfo: token,
+        err: false,
+      });
+    } else {
+      res.json({
+        err: true,
+      });
+    }
   },
   Register: async (req, res) => {},
   Profile: async (req, res) => {
@@ -58,7 +64,13 @@ const controller = {
       "SELECT cashback FROM `Users` WHERE email=?",
       [token.email]
     );
-    let TheUser = User[0];
+    const [Orders, _] = await promisePool.query(
+      "SELECT COUNT(*) AS Orders FROM `TheOrders` WHERE user=?",
+      [token.id]
+    );
+    let TheUser = {};
+    Object.assign(TheUser, User[0]);
+    Object.assign(TheUser, { orders: Orders[0].Orders });
 
     res.json(TheUser);
   },
