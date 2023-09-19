@@ -35,9 +35,8 @@ export default class extends AbstractViews {
         });
       return `
       <div class='logIn'>
-        <div class="logo">
-            <h2>Talgtna</h2>
-            <img src="/static/img/icon.png"/>
+        <div class="logo">            
+          <img src="/static/img/logo.png"/>
         </div>
         <form id="login">
             <div class='input'>
@@ -61,7 +60,7 @@ export default class extends AbstractViews {
             </div>
         </div>
         <div class="signup">
-            <a href="/register" data-link></a>
+            <a href="/register" data-link>أو قم بتسجيل حساب</a>
         </div>
       </div>
       `;

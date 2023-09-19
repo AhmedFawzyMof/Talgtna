@@ -4,6 +4,7 @@ const UserController = require("../controller/user.controller");
 const auth = require("../middleware/auth");
 
 router.post("/", UserController.Login);
+router.post("/register", UserController.Register);
 router.get("/profile", auth.authMiddleware, UserController.Profile);
 router.get("/cashback", auth.authMiddleware, UserController.Cashback);
 router.get("/orderhistory", auth.authMiddleware, UserController.OrderHistory);

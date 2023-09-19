@@ -6,6 +6,7 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  margin: 30px 0;
 }
 
 @media (max-width: 550px) {
@@ -19,6 +20,13 @@
   }
 }
 form#login {
+  width: 100%;
+  display: flex;
+  align-items: start;
+  flex-direction: column;
+  padding: 0 10px;
+}
+form#register {
   width: 100%;
   display: flex;
   align-items: start;
@@ -66,7 +74,7 @@ form#login {
 }
 
 .logo img {
-  width: 65px;
+  width: 100%;
 }
 
 .media {
@@ -93,5 +101,16 @@ form#login {
   justify-content: center;
   border-radius: 50px;
   border: none;
+  color: var(--main-color);
+}
+
+.terms {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.terms a {
   color: var(--main-color);
 }

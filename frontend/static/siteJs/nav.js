@@ -40,10 +40,12 @@ quantityInCart.setAttribute("id", "count");
 
 function cartLength() {
   const Thecart = JSON.parse(localStorage.getItem("cart"));
-  let length = Thecart.reduce((acc, curr) => {
-    return acc + curr.quantity;
-  }, 0);
-
+  let length = 0;
+  if (Thecart.length > 0) {
+    length = Thecart.reduce((acc, curr) => {
+      return acc + curr.quantity;
+    }, 0);
+  }
   if (length !== 0) {
     quantityInCart.innerHTML = length;
     cartA.appendChild(quantityInCart);
