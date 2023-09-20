@@ -15,6 +15,7 @@ if (location.href.includes("login")) {
       method: "post",
       body: urlencoded,
     });
+
     const data = await response.json();
     if (data.err) {
       CreateToast({
@@ -24,6 +25,8 @@ if (location.href.includes("login")) {
       });
     } else {
       localStorage.setItem("AuthToken", data.userInfo);
+      localStorage.setItem("coupons", data.coupons);
+      localStorage.setItem("favlist", data.fav);
       CreateToast({
         type: "success",
         message: "تم تسجيل الدخول بنجاح",
@@ -59,6 +62,8 @@ if (location.href.includes("register")) {
       });
     } else {
       localStorage.setItem("AuthToken", data.userInfo);
+      localStorage.setItem("coupons", data.coupons);
+      localStorage.setItem("favlist", data.fav);
       CreateToast({
         type: "success",
         message: "تم إنشاء الحساب بنجاح",

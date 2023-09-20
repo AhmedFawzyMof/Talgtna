@@ -2,6 +2,7 @@ const db = require("../db/index");
 const promisePool = db.promise();
 const crypto = require("crypto");
 const jwt = require("jsonwebtoken");
+const { v4: uuidv4 } = require("uuid");
 
 const controller = {
   Login: async (req, res) => {
@@ -34,10 +35,17 @@ const controller = {
         Object.assign(TheUser, { Stuff: false });
       }
 
-      const token = jwt.sign({ user: TheUser }, process.env.SECRET_KEY);
+      const user = {
+        id: TheUser.id,
+        email: TheUser.id,
+        Admin: TheUser.Admin,
+        Stuff: TheUser.Stuff,
+      };
+
+      const token = jwt.sign(user, process.env.SECRET_KEY);
 
       const [FavList, fields] = await promisePool.query(
-        "SELECT COUNT(*) AS Fav FROM `favourit` WHERE user=?",
+        "SELECT COUNT(*) AS Fav FROM `favourite` WHERE user=?",
         [user.id]
       );
 
@@ -96,13 +104,49 @@ const controller = {
     const password = crypto.createHmac("sha256", pass).digest("hex");
     const id = uuidv4();
 
-    const [rows, fields] = await promisePool.query(
+    const [rows, _] = await promisePool.query(
       "INSERT INTO `Users` (`id`, `username`, `email`, `password`, `coupons`) VALUES (?, ?, ?, ?, ?)",
       [id, username, email, password, JSON.stringify(coupons)]
     );
-    req.email = email;
-    req.password = password;
-    this.Login(req, res);
+    const [User, userfields] = await promisePool.query(
+      "SELECT id,email,Admin,Stuff,coupons FROM `Users` WHERE (email,password)=(?,?)",
+      [email, password]
+    );
+
+    let TheUser = User[0];
+    if (TheUser.Admin == 1) {
+      Object.assign(TheUser, { Admin: true });
+    } else {
+      Object.assign(TheUser, { Admin: false });
+    }
+    if (TheUser.Stuff == 1) {
+      Object.assign(TheUser, { Stuff: true });
+    } else {
+      Object.assign(TheUser, { Stuff: false });
+    }
+
+    const user = {
+      id: TheUser.id,
+      email: TheUser.id,
+      Admin: TheUser.Admin,
+      Stuff: TheUser.Stuff,
+    };
+
+    const token = jwt.sign(user, process.env.SECRET_KEY);
+
+    const [FavList, favfields] = await promisePool.query(
+      "SELECT COUNT(*) AS Fav FROM `favourite` WHERE user=?",
+      [id]
+    );
+
+    const fav = FavList[0].Fav;
+
+    return res.json({
+      userInfo: token,
+      coupons: TheUser.coupons.length,
+      fav: fav,
+      err: false,
+    });
   },
   Profile: async (req, res) => {
     const token = JSON.parse(req.headers.authtoken).user;
@@ -161,6 +205,20 @@ const controller = {
     let TheUser = User[0];
 
     res.json(TheUser);
+  },
+  Favourite: async (req, res) => {
+    const token = JSON.parse(req.headers.authtoken).user;
+    const product = req.body;
+    console.log(token, product);
+
+    const [fav, _] = await promisePool.query(
+      "INSERT INTO `favourite` (`user`, `product`) VALUES (?, ?)",
+      [token, product]
+    );
+
+    res.json({
+      err: false,
+    });
   },
 };
 

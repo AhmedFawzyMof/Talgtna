@@ -52,7 +52,9 @@ export default class extends AbstractViews {
         <button id='addtocart' onclick="addItemToCart(${
           product.id
         })"><img src="/static/img/addtocart.png" /></button>
-        <button id='addtofav'><i class="bx bxs-heart"></i></button>
+        <button id='addtofav' onclick='addToFav(${
+          product.id
+        })'><i class="bx bxs-heart"></i></button>
         <a href='/product/${product.id}' data-link>
             <img class='image' src='/static/${product.image}' />
           <div class='body'>

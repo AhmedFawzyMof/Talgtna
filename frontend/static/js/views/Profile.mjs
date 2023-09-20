@@ -10,6 +10,26 @@ export default class extends AbstractViews {
   async getHtml() {
     if (this.auth) {
       if (localStorage.getItem("AuthToken")) {
+        const headers = new Headers();
+        headers.append("AuthToken", localStorage.getItem("AuthToken"));
+        const response = await fetch("http://localhost:5500/user/profile", {
+          method: "get",
+          headers: headers,
+        });
+
+        const data = await response.json();
+
+        if (data.err) {
+          localStorage.removeItem("AuthToken");
+          localStorage.removeItem("coupons");
+          localStorage.removeItem("favlist");
+          window.location = "/";
+          CreateToast({
+            type: "success",
+            msg: "حدث خطأ ما، يرجى تسجيل الدخول والمحاولة مرة أخرى",
+            time: 5000,
+          });
+        }
         fetch("/static/siteJs/profile.js")
           .then(function (response) {
             if (!response.ok) {

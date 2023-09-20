@@ -9,5 +9,6 @@ router.get("/profile", auth.authMiddleware, UserController.Profile);
 router.get("/cashback", auth.authMiddleware, UserController.Cashback);
 router.get("/orderhistory", auth.authMiddleware, UserController.OrderHistory);
 router.get("/coupon", auth.authMiddleware, UserController.Coupons);
+router.post("/fav", auth.authMiddleware, UserController.Favourite);
 
 module.exports = router;

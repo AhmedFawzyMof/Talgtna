@@ -8,7 +8,7 @@ exports.authMiddleware = (req, res, next) => {
     next();
   } catch (err) {
     res.json({
-      error: true,
+      err: true,
     });
   }
 };

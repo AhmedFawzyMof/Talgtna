@@ -143,16 +143,15 @@ if (cartLength() > 0) {
   getProductsInCart();
 }
 
-function addToFav(productId){
+async function addToFav(productId) {
   const headers = new Headers();
   headers.append("AuthToken", localStorage.getItem("AuthToken"));
-  headers.append('Content-type','json')
+  headers.append("Content-type", "json");
   const response = await fetch("http://localhost:5500/user/fav", {
     method: "post",
     headers: headers,
-    body: JSON.stringify({product: productId})
+    body: { product: productId },
   });
-
   const data = await response.json();
   console.log(data);
 }
