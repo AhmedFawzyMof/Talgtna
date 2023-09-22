@@ -85,3 +85,34 @@ function CreateToast(options) {
     toast.remove();
   }, options.time);
 }
+function getFav() {
+  const fav = document.querySelector(".fav");
+  const favcount = document.createElement("span");
+  favcount.setAttribute("id", "count");
+
+  if (localStorage.getItem("favlist")) {
+    const count = JSON.parse(localStorage.getItem("favlist"));
+    if (count > 0) {
+      favcount.innerHTML = count;
+      fav.appendChild(favcount);
+    }
+  }
+}
+
+getFav();
+
+function getCoupon() {
+  const coupon = document.querySelector(".coupon");
+  const couponcount = document.createElement("span");
+  couponcount.setAttribute("id", "count");
+
+  if (localStorage.getItem("coupons")) {
+    const count = JSON.parse(localStorage.getItem("coupons"));
+    if (count > 0) {
+      couponcount.innerHTML = count;
+      coupon.appendChild(couponcount);
+    }
+  }
+}
+
+getCoupon();

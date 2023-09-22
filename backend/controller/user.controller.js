@@ -7,13 +7,11 @@ const { v4: uuidv4 } = require("uuid");
 const controller = {
   Login: async (req, res) => {
     let user = req.body;
-    console.length(user);
     if (req.email) {
       user = {
         email: req.email,
         password: req.password,
       };
-      console.log(user);
     }
     const password = crypto.createHmac("sha256", user.password).digest("hex");
 
@@ -37,7 +35,7 @@ const controller = {
 
       const user = {
         id: TheUser.id,
-        email: TheUser.id,
+        email: TheUser.email,
         Admin: TheUser.Admin,
         Stuff: TheUser.Stuff,
       };
@@ -127,7 +125,7 @@ const controller = {
 
     const user = {
       id: TheUser.id,
-      email: TheUser.id,
+      email: TheUser.email,
       Admin: TheUser.Admin,
       Stuff: TheUser.Stuff,
     };
@@ -149,7 +147,7 @@ const controller = {
     });
   },
   Profile: async (req, res) => {
-    const token = JSON.parse(req.headers.authtoken).user;
+    const token = JSON.parse(req.headers.authtoken);
 
     const [User, fields] = await promisePool.query(
       "SELECT username,email,Admin,Stuff FROM `Users` WHERE email=?",
@@ -169,8 +167,7 @@ const controller = {
     return res.json(TheUser);
   },
   Cashback: async (req, res) => {
-    const token = JSON.parse(req.headers.authtoken).user;
-
+    const token = JSON.parse(req.headers.authtoken);
     const [User, fields] = await promisePool.query(
       "SELECT cashback FROM `Users` WHERE email=?",
       [token.email]
@@ -186,7 +183,7 @@ const controller = {
     return res.json(TheUser);
   },
   OrderHistory: async (req, res) => {
-    const token = JSON.parse(req.headers.authtoken).user;
+    const token = JSON.parse(req.headers.authtoken);
 
     const [Orders, fields] = await promisePool.query(
       "SELECT * FROM `TheOrders` WHERE user=?",
@@ -196,8 +193,7 @@ const controller = {
     res.json(Orders);
   },
   Coupons: async (req, res) => {
-    const token = JSON.parse(req.headers.authtoken).user;
-
+    const token = JSON.parse(req.headers.authtoken);
     const [User, fields] = await promisePool.query(
       "SELECT coupons FROM `Users` WHERE email=?",
       [token.email]
@@ -207,7 +203,7 @@ const controller = {
     res.json(TheUser);
   },
   Favourite: async (req, res) => {
-    const token = JSON.parse(req.headers.authtoken).user;
+    const token = JSON.parse(req.headers.authtoken);
     const product = req.body;
     console.log(token, product);
 

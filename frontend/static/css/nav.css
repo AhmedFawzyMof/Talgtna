@@ -334,3 +334,7 @@ nav #Lang {
     width: 0;
   }
 }
+
+.coupon {
+  position: relative;
+}
