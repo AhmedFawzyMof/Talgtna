@@ -73,7 +73,11 @@ export default class extends AbstractViews {
             sc.setAttribute("type", "text/javascript");
             document.head.appendChild(sc);
           });
-        return `<div class='cotainer'>${mappedCoupons}</div>`;
+        return `
+        <div class='cotainer'>
+          <a href="/compony/عروض التوفير" data-link class='offer'><p>اضغط لرؤية العروض</p></a>
+          ${mappedCoupons}
+        </div>`;
       } else {
         return `
           <div class='notLoginPop'>

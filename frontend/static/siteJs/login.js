@@ -32,8 +32,13 @@ if (location.href.includes("login")) {
         message: "تم تسجيل الدخول بنجاح",
         time: 7000,
       });
+      getFav();
+      getCoupon();
       const Home = document.getElementById("HomePage");
       Home.click();
+      setTimeout(() => {
+        location.reload();
+      }, 7000);
     }
   });
 }
@@ -74,8 +79,13 @@ if (location.href.includes("register")) {
         message: "تم تسجيل الدخول بنجاح",
         time: 7000,
       });
+      getFav();
+      getCoupon();
       const Home = document.getElementById("HomePage");
       Home.click();
+      setTimeout(() => {
+        location.reload();
+      }, 7000);
     }
   });
 }

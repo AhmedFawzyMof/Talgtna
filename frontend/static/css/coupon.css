@@ -1,4 +1,5 @@
 #app {
+  min-height: 85dvh;
   gap: 20px;
 }
 div.coupon {
@@ -73,4 +74,34 @@ button.useIt {
   color: var(--sub-color);
   border: none;
   -webkit-box-shadow: 0px 4px 10px #33333370;
+}
+
+.cotainer a {
+  position: relative;
+  background: var(--main-color);
+  width: 70%;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  border-radius: 5px;
+  text-decoration: none;
+  color: var(--sub-color);
+  -webkit-box-shadow: 0px 4px 10px #33333370;
+}
+a.offer::after {
+  content: "15% off";
+  background: #80a1a9;
+  width: 40%;
+  height: 100%;
+  position: absolute;
+  border-radius: 5px;
+  direction: ltr;
+  left: 0;
+  display: grid;
+  place-content: center;
+}
+.offer p {
+  margin-left: 100px;
 }

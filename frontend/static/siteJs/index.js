@@ -6,6 +6,7 @@ function Scroll() {
   const carousel = document.querySelector(".carousel");
   num++;
   const dot = document.getElementById("d" + num);
+
   if (dot !== null) {
     dot.classList.add("active");
   }

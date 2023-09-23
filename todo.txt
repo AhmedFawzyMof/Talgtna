@@ -1,4 +1,3 @@
 -edit the menu from pc mode to have same links like mobile mode
 -add animation for change a page
 -loading bar global
--authentication system %50

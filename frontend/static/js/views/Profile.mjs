@@ -5,7 +5,7 @@ export default class extends AbstractViews {
     super(params, auth);
     this.auth = auth;
     this.setTitle("my Profile");
-    this.setStyle("");
+    this.setStyle("/static/css/profile.css");
   }
   async getHtml() {
     if (this.auth) {
@@ -18,7 +18,7 @@ export default class extends AbstractViews {
         });
 
         const data = await response.json();
-
+        console.log(data);
         if (data.err) {
           localStorage.removeItem("AuthToken");
           localStorage.removeItem("coupons");
@@ -52,7 +52,14 @@ export default class extends AbstractViews {
             sc.setAttribute("type", "text/javascript");
             document.head.appendChild(sc);
           });
-        return "";
+        return `
+          <div class="profile">
+            <p>الاسم: ${data.username}</p>
+            <p>بريد إلكتروني: ${data.email}</p>
+            <button onclick="logout()">تسجيل خروج</button>
+            <a href="/edit/profile" data-link>تعديل الملف الشخصي</a>
+          </div>        
+        `;
       } else {
         return `
         <div class='notLoginPop'>
