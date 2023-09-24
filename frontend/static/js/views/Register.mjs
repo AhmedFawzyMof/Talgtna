@@ -12,7 +12,7 @@ export default class extends AbstractViews {
       location.replace("/");
     } else {
       loading(true);
-      fetch("/static/siteJs/login.js")
+      fetch("/static/siteJs/register.js")
         .then(function (response) {
           if (!response.ok) {
             return false;

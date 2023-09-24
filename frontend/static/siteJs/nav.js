@@ -123,12 +123,13 @@ getCoupon();
 
 function loading(condition) {
   const app = document.getElementById("app");
-
+  const loader = document.getElementById("loader");
+  const loadingPage = document.getElementById("loadingPage");
   if (condition == true) {
     app.style.display = "none";
-    console.log(app.style.display);
+    loadingPage.style.display = "flex";
   } else {
     app.style.display = "flex";
-    console.log(app.style.display);
+    loadingPage.style.display = "none";
   }
 }

@@ -1,7 +1,7 @@
-function login() {
-  const LoginForm = document.getElementById("login");
+function register() {
+  const RegisterForm = document.getElementById("register");
 
-  LoginForm.addEventListener("submit", async function (e) {
+  RegisterForm.addEventListener("submit", async function (e) {
     e.preventDefault();
     const formData = new FormData(this);
     const urlencoded = new URLSearchParams();
@@ -10,7 +10,7 @@ function login() {
       urlencoded.append(pair[0], pair[1]);
     }
 
-    const response = await fetch("http://localhost:5500/user", {
+    const response = await fetch("http://localhost:5500/user/register", {
       method: "post",
       body: urlencoded,
     });
@@ -19,13 +19,18 @@ function login() {
     if (data.err) {
       CreateToast({
         type: "error",
-        message: "لا يمكن تسجيل الدخول ببيانات المقدمة",
+        message: data.msg,
         time: 7000,
       });
     } else {
       localStorage.setItem("AuthToken", data.userInfo);
       localStorage.setItem("coupons", data.coupons);
       localStorage.setItem("favlist", data.fav);
+      CreateToast({
+        type: "success",
+        message: "تم إنشاء الحساب بنجاح",
+        time: 7000,
+      });
       CreateToast({
         type: "success",
         message: "تم تسجيل الدخول بنجاح",
@@ -38,4 +43,4 @@ function login() {
     }
   });
 }
-login();
+register();

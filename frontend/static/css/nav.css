@@ -338,3 +338,32 @@ nav #Lang {
 .coupon {
   position: relative;
 }
+
+div#loadingPage {
+  background: #ff971f47;
+  position: fixed;
+  height: 100vh;
+  width: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+
+div#loadingPage i {
+  font-size: 100px;
+  color: var(--sub-color);
+  animation-name: loading;
+  animation-duration: 3s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes loading {
+  0% {
+    rotate: 180deg;
+  }
+  100% {
+    rotate: -180deg;
+  }
+}
