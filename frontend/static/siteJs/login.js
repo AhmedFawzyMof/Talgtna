@@ -36,9 +36,9 @@ if (location.href.includes("login")) {
       getCoupon();
       const Home = document.getElementById("HomePage");
       Home.click();
-      setTimeout(() => {
-        location.reload();
-      }, 7000);
+      // setTimeout(() => {
+      //   location.reload();
+      // }, 7000);
     }
   });
 }
@@ -83,9 +83,9 @@ if (location.href.includes("register")) {
       getCoupon();
       const Home = document.getElementById("HomePage");
       Home.click();
-      setTimeout(() => {
-        location.reload();
-      }, 7000);
+      // setTimeout(() => {
+      //   location.reload();
+      // }, 7000);
     }
   });
 }

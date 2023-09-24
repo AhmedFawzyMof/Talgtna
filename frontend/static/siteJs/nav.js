@@ -96,6 +96,8 @@ function getFav() {
       favcount.innerHTML = count;
       fav.appendChild(favcount);
     }
+  } else {
+    fav.innerHTML = '<i class="bx bxs-heart"></i>';
   }
 }
 
@@ -112,7 +114,21 @@ function getCoupon() {
       couponcount.innerHTML = count;
       coupon.appendChild(couponcount);
     }
+  } else {
+    coupon.innerHTML = '<i class="bx bxs-discount"></i><p>القسائم</p>';
   }
 }
 
 getCoupon();
+
+function loading(condition) {
+  const app = document.getElementById("app");
+
+  if (condition == true) {
+    app.style.display = "none";
+    console.log(app.style.display);
+  } else {
+    app.style.display = "flex";
+    console.log(app.style.display);
+  }
+}

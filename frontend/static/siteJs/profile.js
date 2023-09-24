@@ -4,5 +4,6 @@ function logout() {
   localStorage.removeItem("coupons");
   const Home = document.getElementById("HomePage");
   Home.click();
-  location.reload();
+  console.log(getCoupon());
+  console.log(getFav());
 }

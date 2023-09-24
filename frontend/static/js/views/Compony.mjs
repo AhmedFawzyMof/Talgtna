@@ -9,6 +9,8 @@ export default class extends AbstractViews {
     this.setStyle("/static/css/company.css");
   }
   async getHtml() {
+    loading(true);
+
     const response = await fetch(
       "http://localhost:5500/compony/" + this.company
     );
@@ -40,7 +42,6 @@ export default class extends AbstractViews {
             return `<p class="price">${product.price} ج</p>`;
           }
         }
-
         return `
       <div class='${isAvailable()}' id='${product.id}' key='${index}'>
         <input type="hidden" value="${product.id}" id="productId" />
@@ -88,7 +89,7 @@ export default class extends AbstractViews {
         sc.setAttribute("type", "text/javascript");
         document.head.appendChild(sc);
       });
-
+    loading(false);
     return `
     <div class='containerProducts'>
      ${mappedProducts}

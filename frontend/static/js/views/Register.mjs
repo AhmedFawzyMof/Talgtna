@@ -11,6 +11,7 @@ export default class extends AbstractViews {
     if (this.auth) {
       location.replace("/");
     } else {
+      loading(true);
       fetch("/static/siteJs/login.js")
         .then(function (response) {
           if (!response.ok) {
@@ -33,6 +34,7 @@ export default class extends AbstractViews {
           sc.setAttribute("type", "text/javascript");
           document.head.appendChild(sc);
         });
+      loading(false);
       return `
       <div class='logIn'>
         <div class="logo">

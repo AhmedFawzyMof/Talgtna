@@ -5,9 +5,10 @@ export default class extends AbstractViews {
     super(params, auth);
     this.auth = auth;
     this.setTitle("my Orders");
-    this.setStyle("");
+    this.setStyle("/static/css/orderHistory.css");
   }
   async getHtml() {
+    loading(true);
     if (this.auth) {
       if (localStorage.getItem("AuthToken")) {
         const headers = new Headers();
@@ -99,12 +100,23 @@ export default class extends AbstractViews {
             sc.setAttribute("type", "text/javascript");
             document.head.appendChild(sc);
           });
+        loading(false);
         if (data.length > 0) {
           return mappedOrder;
         } else {
-          return "";
+          return `
+          <div class='noOrders'>
+            <div class='icons'><i class='bx bxs-package'></i><i class='bx bx-sad' ></i></div>
+            <div class='links'>
+              <p>لا توجد طلبات حتى الآن</p>
+              <a href="/" data-link>الرئيسية</a>
+              <a href=/compony/عروض التوفير" data-link class='offer'><p>اضغط لرؤية العروض</p></a>
+            </div>
+          </div>
+          `;
         }
       } else {
+        loading(false);
         return `
         <div class='notLoginPop'>
           <a href="/" data-link class="backToHome"><i class='bx bxs-x-circle'></i></a>

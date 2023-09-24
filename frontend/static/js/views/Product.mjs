@@ -9,6 +9,7 @@ export default class extends AbstractViews {
     this.setStyle("/static/css/product.css");
   }
   async getHtml() {
+    loading(true);
     const response = await fetch(
       "http://localhost:5500/product/" + this.productId
     );
@@ -99,6 +100,7 @@ export default class extends AbstractViews {
         sc.setAttribute("type", "text/javascript");
         document.head.appendChild(sc);
       });
+    loading(false);
     return theProduct;
   }
 }

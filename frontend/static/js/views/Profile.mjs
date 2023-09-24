@@ -9,6 +9,8 @@ export default class extends AbstractViews {
   }
   async getHtml() {
     if (this.auth) {
+      loading(true);
+
       if (localStorage.getItem("AuthToken")) {
         const headers = new Headers();
         headers.append("AuthToken", localStorage.getItem("AuthToken"));
@@ -52,6 +54,7 @@ export default class extends AbstractViews {
             sc.setAttribute("type", "text/javascript");
             document.head.appendChild(sc);
           });
+        loading(false);
         return `
           <div class="profile">
             <p>الاسم: ${data.username}</p>
@@ -61,6 +64,7 @@ export default class extends AbstractViews {
           </div>        
         `;
       } else {
+        loading(false);
         return `
         <div class='notLoginPop'>
           <a href="/" data-link class="backToHome"><i class='bx bxs-x-circle'></i></a>

@@ -8,6 +8,7 @@ export default class extends AbstractViews {
     this.setStyle("/static/css/login.css");
   }
   async getHtml() {
+    loading(true);
     if (localStorage.getItem("AuthToken")) {
       location.replace("/");
     } else {
@@ -33,6 +34,7 @@ export default class extends AbstractViews {
           sc.setAttribute("type", "text/javascript");
           document.head.appendChild(sc);
         });
+      loading(false);
       return `
       <div class='logIn'>
         <div class="logo">            

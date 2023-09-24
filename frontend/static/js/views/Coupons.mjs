@@ -8,6 +8,7 @@ export default class extends AbstractViews {
     this.setStyle("/static/css/coupon.css");
   }
   async getHtml() {
+    loading(true);
     if (this.auth) {
       if (localStorage.getItem("AuthToken")) {
         const headers = new Headers();
@@ -73,12 +74,14 @@ export default class extends AbstractViews {
             sc.setAttribute("type", "text/javascript");
             document.head.appendChild(sc);
           });
+        loading(false);
         return `
         <div class='cotainer'>
           <a href="/compony/عروض التوفير" data-link class='offer'><p>اضغط لرؤية العروض</p></a>
           ${mappedCoupons}
         </div>`;
       } else {
+        loading(false);
         return `
           <div class='notLoginPop'>
             <a href="/" data-link class="backToHome"><i class='bx bxs-x-circle'></i></a>

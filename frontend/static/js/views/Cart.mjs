@@ -7,6 +7,7 @@ export default class extends AbstractViews {
     this.setStyle("/static/css/cart.css");
   }
   async getHtml() {
+    loading(true);
     if (Cart.length > 0) {
       function Total() {
         const productTotal = Cart.reduce((acc, curr) => {
@@ -101,8 +102,10 @@ export default class extends AbstractViews {
           sc.setAttribute("type", "text/javascript");
           document.head.appendChild(sc);
         });
+      loading(false);
       return cartDiv;
     } else {
+      loading(false);
       return `
       <div id='emptyCart'>
         <p>عربة التسوق فارغة</p>

@@ -8,6 +8,7 @@ export default class extends AbstractViews {
   }
 
   async getHtml() {
+    loading(true);
     const response = await fetch("http://localhost:5500/");
     const data = await response.json();
 
@@ -89,7 +90,7 @@ export default class extends AbstractViews {
         sc.setAttribute("type", "text/javascript");
         document.head.appendChild(sc);
       });
-
+    loading(false);
     return page;
   }
 }
