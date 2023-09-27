@@ -9,6 +9,7 @@ import Cart from "./views/Cart.mjs";
 import Login from "./views/Login.mjs";
 import Register from "./views/Register.mjs";
 import EditProfile from "./views/EditProfile.mjs";
+import Favourite from "./views/Favourite.mjs";
 
 const pathToRegex = (path) =>
   new RegExp("^" + path.replace(/\//g, "\\/").replace(/:\w+/g, "(.+)") + "$");
@@ -44,6 +45,7 @@ const router = async () => {
     { path: "/coupons", view: Coupons, auth: true },
     { path: "/orderHistory", view: OrderHistory, auth: true },
     { path: "/edit/profile", view: EditProfile, auth: true },
+    { path: "/fav", view: Favourite, auth: true },
   ];
 
   // Test each route for potential match

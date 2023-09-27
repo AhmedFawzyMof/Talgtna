@@ -146,12 +146,43 @@ if (cartLength() > 0) {
 async function addToFav(productId) {
   const headers = new Headers();
   headers.append("AuthToken", localStorage.getItem("AuthToken"));
-  headers.append("Content-type", "json");
+  headers.append("Content-type", "application/json");
   const response = await fetch("http://localhost:5500/user/fav", {
     method: "post",
     headers: headers,
-    body: { product: productId },
+    body: JSON.stringify({ product: productId }),
   });
   const data = await response.json();
-  console.log(data);
+  const favlist = JSON.parse(localStorage.getItem("favlist"));
+  if (data.err) {
+    CreateToast({
+      type: "error",
+      message: "لقد حدث خطأ يرجى تسجيل الدخول والمحاولة مرة أخرى",
+      time: 5000,
+    });
+    localStorage.removeItem("AuthToken");
+    localStorage.removeItem("coupons");
+    localStorage.removeItem("favlist");
+    getCoupon();
+    getFav();
+    setTimeout(() => {
+      window.location = "/login";
+    }, 5000);
+  } else {
+    if (data.msg === undefined) {
+      CreateToast({
+        type: "success",
+        message: "تمت إضافة المنتج إلى المفضلة",
+        time: 3000,
+      });
+      localStorage.setItem("favlist", favlist + 1);
+      getFav();
+    } else {
+      CreateToast({
+        type: "error",
+        message: data.msg,
+        time: 3000,
+      });
+    }
+  }
 }

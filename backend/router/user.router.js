@@ -11,5 +11,6 @@ router.get("/orderhistory", auth.authMiddleware, UserController.OrderHistory);
 router.get("/coupon", auth.authMiddleware, UserController.Coupons);
 router.post("/fav", auth.authMiddleware, UserController.Favourite);
 router.post("/edit", auth.authMiddleware, UserController.Edit);
+router.get("/fav", auth.authMiddleware, UserController.GetFavourite);
 
 module.exports = router;

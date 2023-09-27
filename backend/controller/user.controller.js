@@ -204,16 +204,27 @@ const controller = {
   },
   Favourite: async (req, res) => {
     const token = JSON.parse(req.headers.authtoken);
-    const product = req.body;
+    const product = req.body.product;
 
-    const [fav, _] = await promisePool.query(
-      "INSERT INTO `favourite` (`user`, `product`) VALUES (?, ?)",
-      [token, product]
+    const [isfaved, __] = await promisePool.query(
+      "SELECT * FROM `favourite` WHERE (user, product)=(?, ?)",
+      [token.id, product]
     );
 
-    res.json({
-      err: false,
-    });
+    if (isfaved.length == 0) {
+      const [fav, _] = await promisePool.query(
+        "INSERT INTO `favourite` (`user`, `product`) VALUES (?, ?)",
+        [token.id, product]
+      );
+
+      res.json({
+        err: false,
+      });
+    } else {
+      res.json({
+        msg: "المنتج موجود بالفعل في المفضلة",
+      });
+    }
   },
   Edit: async (req, res) => {
     const theUser = JSON.parse(req.headers.authtoken);
@@ -251,6 +262,18 @@ const controller = {
         err: false,
       });
     }
+  },
+  GetFavourite: async (req, res) => {
+    const token = JSON.parse(req.headers.authtoken);
+
+    const [fav, __] = await promisePool.query(
+      "SELECT * FROM `favourite` WHERE user=?",
+      [token.id]
+    );
+
+    res.json({
+      fav: fav,
+    });
   },
 };
 
