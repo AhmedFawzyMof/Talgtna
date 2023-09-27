@@ -205,7 +205,6 @@ const controller = {
   Favourite: async (req, res) => {
     const token = JSON.parse(req.headers.authtoken);
     const product = req.body;
-    console.log(token, product);
 
     const [fav, _] = await promisePool.query(
       "INSERT INTO `favourite` (`user`, `product`) VALUES (?, ?)",
@@ -215,6 +214,43 @@ const controller = {
     res.json({
       err: false,
     });
+  },
+  Edit: async (req, res) => {
+    const theUser = JSON.parse(req.headers.authtoken);
+    const username = req.body.username;
+    const password = req.body.password;
+    const email = req.body.email;
+    const password2 = req.body.password2;
+    const pass = crypto.createHmac("sha256", password).digest("hex");
+
+    if (username !== undefined) {
+      promisePool.query(
+        "UPDATE Users SET username=? WHERE (id, password)=(?, ?)",
+        [username, theUser.id, pass]
+      );
+      res.json({
+        err: false,
+      });
+    }
+    if (email !== undefined) {
+      promisePool.query(
+        "UPDATE Users SET email=? WHERE (id, password)=(?, ?)",
+        [email, theUser.id, pass]
+      );
+      res.json({
+        err: false,
+      });
+    }
+    if (password2 !== undefined) {
+      const pass2 = crypto.createHmac("sha256", password2).digest("hex");
+      promisePool.query(
+        "UPDATE Users SET password=? WHERE (id, password)=(?, ?)",
+        [pass2, theUser.id, pass]
+      );
+      res.json({
+        err: false,
+      });
+    }
   },
 };
 

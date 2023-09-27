@@ -7,6 +7,7 @@ exports.authMiddleware = (req, res, next) => {
     req.headers.authtoken = JSON.stringify(user);
     next();
   } catch (err) {
+    console.log(err);
     res.json({
       err: true,
     });

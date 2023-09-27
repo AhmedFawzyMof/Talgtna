@@ -123,7 +123,6 @@ getCoupon();
 
 function loading(condition) {
   const app = document.getElementById("app");
-  const loader = document.getElementById("loader");
   const loadingPage = document.getElementById("loadingPage");
   if (condition == true) {
     app.style.display = "none";
