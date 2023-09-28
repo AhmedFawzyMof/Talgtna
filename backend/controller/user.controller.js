@@ -271,8 +271,32 @@ const controller = {
       [token.id]
     );
 
+    const product = [];
+
+    fav.forEach((element) => {
+      product.push(element.product);
+    });
+
+    const [products, _] = await promisePool.query(
+      "SELECT * FROM Products WHERE id in (?)",
+      [product]
+    );
+
     res.json({
-      fav: fav,
+      fav: products,
+    });
+  },
+  delFavourite: async (req, res) => {
+    const token = JSON.parse(req.headers.authtoken);
+    const product = req.body.product;
+
+    const [delfav, _] = await promisePool.query(
+      "DELETE FROM `zhmarket`.`favourite` WHERE (user, product)=(?, ?)",
+      [token.id, product]
+    );
+
+    res.json({
+      err: false,
     });
   },
 };

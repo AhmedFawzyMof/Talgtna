@@ -4,8 +4,8 @@ export default class extends AbstractViews {
   constructor(params, auth) {
     super(params, auth);
     this.auth = auth;
-    this.setTitle("my Coupons");
-    this.setStyle("/static/css/coupon.css");
+    this.setTitle("my Favourite");
+    this.setStyle("/static/css/company.css");
   }
   async getHtml() {
     loading(true);
@@ -33,7 +33,58 @@ export default class extends AbstractViews {
 
         const products = data.fav;
 
-        fetch("/static/siteJs/coupons.js")
+        const mappedProducts = products
+          .map((product, index) => {
+            function isAvailable() {
+              let ava = "product";
+              if (product.available !== 1 && product.inStock == 0) {
+                ava += " notavailable";
+              } else {
+                ava;
+              }
+              if (product.offer > 0) {
+                ava += " offer";
+              }
+              return ava;
+            }
+
+            function isOffer() {
+              if (product.offer > 0) {
+                return `<p class="price offer">${
+                  product.price + product.offer
+                } ج</p>
+              <p class="price">${product.price} ج</p>
+              `;
+              } else {
+                return `<p class="price">${product.price} ج</p>`;
+              }
+            }
+            return `
+        <div class='${isAvailable()}' id='${product.id}' key='${index}'>
+          <input type="hidden" value="${product.id}" id="productId" />
+          <input type="hidden" value="${product.name}" id="productName" />
+          <input type="hidden" value="${product.image}" id="productImage" />
+          <input type="hidden" value="${product.price}" id="productPrice" />
+          <input type="hidden" value="${product.inStock}" id="productInStock" />
+          <input type="hidden" value="1" id="productQuantity" />
+          <button id='addtocart' onclick="addItemToCart(${
+            product.id
+          })"><img src="/static/img/addtocart.png" /></button>
+          <button id='addtofav' onclick='delToFav(${
+            product.id
+          })'><i class='bx bxs-x-circle'></i></button>
+          <a href='/product/${product.id}' data-link>
+              <img class='image' src='/static/${product.image}' />
+            <div class='body'>
+              <p>${product.name}</p>
+            </div>
+          </a>
+          ${isOffer()}
+        </div>
+        `;
+          })
+          .join("");
+        fetch("/static/siteJs/fav.js")
           .then(function (response) {
             if (!response.ok) {
               return false;
@@ -57,7 +108,9 @@ export default class extends AbstractViews {
           });
         loading(false);
         return `
-      
+        <div class='containerProducts'>
+          ${mappedProducts}
+        </div>
         `;
       } else {
         loading(false);
